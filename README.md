@@ -1,8 +1,21 @@
-insights-movers-and-shakers
+#SAFe App Tools
 =========================
 
-## Overview
+## Getting Started
 
+You can build by running the following commands:
+
+```
+npm install -g bower
+npm install
+bower install
+```
+
+Then you can use rally-app-builder to run the application on a local server:
+
+```
+rally-app-builder run
+```
 
 ## License
 
