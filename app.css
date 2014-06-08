@@ -1,0 +1,15 @@
+.app {
+     /* Add app styles here */
+	display: none;
+}
+
+select {
+	margin-left: 20px;
+}
+
+.green {
+	background-color: green;
+}
+.yellow {
+	background-color: yellow;
+}

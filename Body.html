@@ -1,0 +1,37 @@
+<div style="display:none;" ng-controller="RootCtrl" id="root">	
+	<div>
+		<div style="float: left; display: inline-block; margin-right: 30px;">Choose ART:</div>
+		<div rui-alm-project-picker="" rui-alm-project-picker-selected="art.selectedProject" rui-alm-project-picker-allow-deselect="true" style="float: left; display: inline-block;"></div>
+	</div>
+
+	<p style="height: 20px;"></p>
+
+	<div ng-if="art.availableReleases.length > 0">	
+		Choose Release: <select ng-model="art.selectedRelease" ng-options="release._refObjectName for release in art.availableReleases"></select>
+	<div>
+	
+	<table class="table" ng-if="art.portfolioItems.length > 0">
+		<thead>
+			<tr>
+				<th>Portfolio Item</th>
+				<th>Name</th>
+				<th>Owner</th>
+				<th ng-repeat="project in art.projects">{{project.name}}</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="pi in art.portfolioItems">
+				<td>{{pi.FormattedID}}</td>
+				<td>{{pi.Name}}</td>
+				<td>{{pi.Owner._refObjectName}}</td>
+				<td ng-repeat="project in art.projects" 
+					ng-mouseenter="teamCommitSelectShow[project.projectId] = pi.ObjectID" 
+					ng-mouseleave="teamCommitSelectShow[project.projectId] = undefined"
+					ng-class="{green: teamCommitment[project.projectId][pi.ObjectID] === 'Committed', yellow: teamCommitment[project.projectId][pi.ObjectID] === 'Not Committed'}">
+					<span ng-show="!teamCommitSelectShow[project.projectId]">{{teamCommitment[project.projectId][pi.ObjectID]}}</span>
+					<select ng-show="teamCommitSelectShow[project.projectId] == pi.ObjectID" ng-model="teamCommitStatus" ng-options="item.name for item in teamCommitValues" ng-change="setTeamCommitment(project, pi, teamCommitStatus)"></select>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>

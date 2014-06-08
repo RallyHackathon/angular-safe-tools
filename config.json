@@ -1,0 +1,29 @@
+{
+   "name": "insights-movers-and-shakers",
+   "className": "CustomApp",
+   "server": "https://rally1.rallydev.com",
+   "sdk": "2.0rc3",
+   "javascript": [
+      "bower_components/jquery/jquery.min.js",
+      "bower_components/angular/angular.min.js",
+      "bower_components/angular-sanitize/angular-sanitize.min.js",
+      "bower_components/async/lib/async.js",
+      "bower_components/momentjs/min/moment.min.js",
+      "bower_components/highcharts/highcharts.js",
+      "bower_components/highcharts-ng/dist/highcharts-ng.min.js",
+      "bower_components/rui-angular/rui.js",
+      "App.js",
+      "release.js",
+      "projects.js",
+      "portfolioItem.js",
+      "api.js"
+   ],
+   "html": [
+      "Body.html"
+   ],
+   "css": [
+      "bower_components/bootstrap/dist/css/bootstrap.min.css",
+      "bower_components/rui-angular/assets/css/styles.css",
+      "app.css"
+   ]
+}
