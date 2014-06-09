@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>insights-movers-and-shakers</title>
+    <title>angular-safe-tools</title>
 
     <script type="text/javascript" src="/apps/2.0rc3/sdk.js"></script>
 
@@ -233,6 +233,20 @@ C=h.extend({},w,t,u,v),D=k("background,cite,href,longdesc,src,usemap"),P=h.exten
 ["$$sanitizeUri",function(a){return function(d){var b=[];F(d,s(b,function(b,c){return!/^unsafe/.test(a(b,c))}));return b.join("")}}]});h.module("ngSanitize").filter("linky",["$sanitize",function(a){var d=/((ftp|https?):\/\/|(mailto:)?[A-Za-z0-9._%+-]+@)\S*[^\s.;,(){}<>]/,b=/^mailto:/;return function(e,c){function g(a){a&&m.push(E(a))}function f(a,b){m.push("<a ");h.isDefined(c)&&(m.push('target="'),m.push(c),m.push('" '));m.push('href="');m.push(a);m.push('">');g(b);m.push("</a>")}if(!e)return e;
 for(var l,k=e,m=[],n,p;l=k.match(d);)n=l[0],l[2]==l[3]&&(n="mailto:"+n),p=l.index,g(k.substr(0,p)),f(n,l[0].replace(b,"")),k=k.substring(p+l[0].length);g(k);return a(m.join(""))}}])})(window,window.angular);
 //# sourceMappingURL=angular-sanitize.min.js.map
+
+                /*
+ AngularJS v1.2.17
+ (c) 2010-2014 Google, Inc. http://angularjs.org
+ License: MIT
+*/
+(function(H,a,A){'use strict';function D(p,g){g=g||{};a.forEach(g,function(a,c){delete g[c]});for(var c in p)!p.hasOwnProperty(c)||"$"===c.charAt(0)&&"$"===c.charAt(1)||(g[c]=p[c]);return g}var v=a.$$minErr("$resource"),C=/^(\.[a-zA-Z_$][0-9a-zA-Z_$]*)+$/;a.module("ngResource",["ng"]).factory("$resource",["$http","$q",function(p,g){function c(a,c){this.template=a;this.defaults=c||{};this.urlParams={}}function t(n,w,l){function r(h,d){var e={};d=x({},w,d);s(d,function(b,d){u(b)&&(b=b());var k;if(b&&
+b.charAt&&"@"==b.charAt(0)){k=h;var a=b.substr(1);if(null==a||""===a||"hasOwnProperty"===a||!C.test("."+a))throw v("badmember",a);for(var a=a.split("."),f=0,c=a.length;f<c&&k!==A;f++){var g=a[f];k=null!==k?k[g]:A}}else k=b;e[d]=k});return e}function e(a){return a.resource}function f(a){D(a||{},this)}var F=new c(n);l=x({},B,l);s(l,function(h,d){var c=/^(POST|PUT|PATCH)$/i.test(h.method);f[d]=function(b,d,k,w){var q={},n,l,y;switch(arguments.length){case 4:y=w,l=k;case 3:case 2:if(u(d)){if(u(b)){l=
+b;y=d;break}l=d;y=k}else{q=b;n=d;l=k;break}case 1:u(b)?l=b:c?n=b:q=b;break;case 0:break;default:throw v("badargs",arguments.length);}var t=this instanceof f,m=t?n:h.isArray?[]:new f(n),z={},B=h.interceptor&&h.interceptor.response||e,C=h.interceptor&&h.interceptor.responseError||A;s(h,function(a,b){"params"!=b&&("isArray"!=b&&"interceptor"!=b)&&(z[b]=G(a))});c&&(z.data=n);F.setUrlParams(z,x({},r(n,h.params||{}),q),h.url);q=p(z).then(function(b){var d=b.data,k=m.$promise;if(d){if(a.isArray(d)!==!!h.isArray)throw v("badcfg",
+h.isArray?"array":"object",a.isArray(d)?"array":"object");h.isArray?(m.length=0,s(d,function(b){m.push(new f(b))})):(D(d,m),m.$promise=k)}m.$resolved=!0;b.resource=m;return b},function(b){m.$resolved=!0;(y||E)(b);return g.reject(b)});q=q.then(function(b){var a=B(b);(l||E)(a,b.headers);return a},C);return t?q:(m.$promise=q,m.$resolved=!1,m)};f.prototype["$"+d]=function(b,a,k){u(b)&&(k=a,a=b,b={});b=f[d].call(this,b,this,a,k);return b.$promise||b}});f.bind=function(a){return t(n,x({},w,a),l)};return f}
+var B={get:{method:"GET"},save:{method:"POST"},query:{method:"GET",isArray:!0},remove:{method:"DELETE"},"delete":{method:"DELETE"}},E=a.noop,s=a.forEach,x=a.extend,G=a.copy,u=a.isFunction;c.prototype={setUrlParams:function(c,g,l){var r=this,e=l||r.template,f,p,h=r.urlParams={};s(e.split(/\W/),function(a){if("hasOwnProperty"===a)throw v("badname");!/^\d+$/.test(a)&&(a&&RegExp("(^|[^\\\\]):"+a+"(\\W|$)").test(e))&&(h[a]=!0)});e=e.replace(/\\:/g,":");g=g||{};s(r.urlParams,function(d,c){f=g.hasOwnProperty(c)?
+g[c]:r.defaults[c];a.isDefined(f)&&null!==f?(p=encodeURIComponent(f).replace(/%40/gi,"@").replace(/%3A/gi,":").replace(/%24/g,"$").replace(/%2C/gi,",").replace(/%20/g,"%20").replace(/%26/gi,"&").replace(/%3D/gi,"=").replace(/%2B/gi,"+"),e=e.replace(RegExp(":"+c+"(\\W|$)","g"),function(a,c){return p+c})):e=e.replace(RegExp("(/?):"+c+"(\\W|$)","g"),function(a,c,d){return"/"==d.charAt(0)?d:c+d})});e=e.replace(/\/+$/,"")||"/";e=e.replace(/\/\.(?=\w+($|\?))/,".");c.url=e.replace(/\/\\\./,"/.");s(g,function(a,
+e){r.urlParams[e]||(c.params=c.params||{},c.params[e]=a)})}};return t}])})(window,window.angular);
+//# sourceMappingURL=angular-resource.min.js.map
 
                 /*jshint onevar: false, indent:4 */
 /*global setImmediate: false, setTimeout: false, console: false */
@@ -6305,14 +6319,19 @@ angular.module('rui.templates').run(['$templateCache', function($templateCache) 
 
                 var module = angular.module('rally.hackathon.intel', [
 	'rui.alm.projectPicker',
-	'rally.hackathon.intel.api',
 	'rally.hackathon.intel.release',
 	'rally.hackathon.intel.projects',
 	'rally.hackathon.intel.portfolio'
 ]);
 
-module.config(function($slmProvider) {
+module.config(function($slmProvider, $httpProvider) {
 	$slmProvider.setBaseUrl("https://rally1.rallydev.com/slm/");
+
+	//$httpProvider.defaults.headers.common['Access-Control-Allow-Origin'] = 'http://localhost:1337/';
+	//$httpProvider.defaults.headers.common['Access-Control-Allow-Methods'] = 'POST, GET, OPTIONS';
+	$httpProvider.defaults.useXDomain = true;
+	$httpProvider.defaults.withCredentials = true;
+	delete $httpProvider.defaults.headers.common['X-Requested-With'];
 });
 
 Ext.define('CustomApp', {
@@ -6337,7 +6356,7 @@ module.run(function($rootScope, $timeout){
 	});
 });
 
-module.controller('RootCtrl', function($scope, $log, releaseLoader, portfolioItemLoader, projectLoader){
+module.controller('RootCtrl', function($scope, $log, $http, releaseLoader, portfolioItemLoader, projectLoader){
 	$scope.art = {
 		availableReleases: [],
 		portfolioItems: [],
@@ -6355,8 +6374,13 @@ module.controller('RootCtrl', function($scope, $log, releaseLoader, portfolioIte
 	$scope.teamCommitment = {};
 
 	$scope.setTeamCommitment = function(project, pi, teamCommitStatus) {
-		$scope.teamCommitment[project.projectId] = {};
-		$scope.teamCommitment[project.projectId][pi.ObjectID] = teamCommitStatus.value;
+		$scope.teamCommitment[pi.ObjectID] = {};
+		$scope.teamCommitment[pi.ObjectID][project.projectId] = teamCommitStatus.value;
+
+		console.log("saving PI commitments:", pi.ObjectID);
+		portfolioItemLoader.save(pi, {c_CFTeamCommit: $scope.teamCommitment[pi.ObjectID]}, $scope.authorizationKey).then(function(data, status) {
+			console.log("status", status, "data", data);
+		});
 	};
 
 	$scope.$watch('art.selectedProject', function(){
@@ -6373,8 +6397,26 @@ module.controller('RootCtrl', function($scope, $log, releaseLoader, portfolioIte
 	$scope.$watch('art.selectedRelease', function(){
 		portfolioItemLoader.getPortfolioItemsByRelease($scope.art.selectedRelease).then(function(results) {
 			$scope.art.portfolioItems = results.data.QueryResult.Results;
+			// TODO fill in teamCommitment from results
 		});
 	});
+
+	$scope.authorizationKey = undefined;
+
+	var getAuthorizationKey = function() {
+		$http({
+			url: 'https://rally1.rallydev.com/slm/webservice/v2.0/security/authorize',
+			method: 'JSONP',
+			params: {
+				'jsonp': 'JSON_CALLBACK'
+			}
+		}).then(function(response) {
+			$scope.authorizationKey = response.data.OperationResult.SecurityToken;
+		});
+	};
+
+	getAuthorizationKey();
+
 });
 
 
@@ -6386,7 +6428,8 @@ module.controller('RootCtrl', function($scope, $log, releaseLoader, portfolioIte
 			method: 'JSONP',
 			params: {
 				'jsonp': 'JSON_CALLBACK'
-			}
+			},
+			withCredentials: true
 		});
 	};
 
@@ -6400,21 +6443,23 @@ module.controller('RootCtrl', function($scope, $log, releaseLoader, portfolioIte
 		var self = this;
 		var deferred = $q.defer();
 		queue = [rootProject];
-		leaves = []
+		leaves = [];
 
-		var test = function(){ return queue.length > 0};
+		var test = function() {
+			return queue.length > 0;
+		};
 		async.whilst(test, function(callback){
-			var toLoad = queue.shift()
+			var toLoad = queue.shift();
 			self.loadChildren(toLoad).then(function(children){
 				if(_.size(children) === 0){
 					leaves.push(_.extend({name:toLoad.Name, projectId:toLoad.ObjectID, workspaceId: rootProject.workspaceOid}));
 				} else {
 					_.each(children, function(child){ 
-						queue.push(child) 
+						queue.push(child);
 					});
 				}
 				callback();
-			})
+			});
 		}, function(err){
 			deferred.resolve(leaves);
 			if(!$rootScope.$$phase){
@@ -6431,9 +6476,10 @@ module.controller('RootCtrl', function($scope, $log, releaseLoader, portfolioIte
 			method: 'JSONP',
 			params: {
 				'jsonp': 'JSON_CALLBACK'
-			}
+			},
+			withCredentials: true
 		}).then(function(data){
-			return data.data.QueryResult.Results
+			return data.data.QueryResult.Results;
 		});
 
 	};
@@ -6441,32 +6487,32 @@ module.controller('RootCtrl', function($scope, $log, releaseLoader, portfolioIte
 });
 
                 angular.module('rally.hackathon.intel.portfolio', []).service('portfolioItemLoader', function($http, $q, $rootScope){
-	
-	this.getPortfolioItemsByRelease = function(release){
+
+	this.getPortfolioItemsByRelease = function(release) {
 		return $http({
 			url: 'https://rally1.rallydev.com/slm/webservice/v2.0/portfolioitem/feature?workspace='+release.Workspace._ref+'&query=(Release = /release/'+release.ObjectID+')&fetch=Name,ObjectID,FormattedID,Owner,c_CFTeamCommit',
 			method: 'JSONP',
 			params: {
 				'jsonp': 'JSON_CALLBACK'
-			}
+			},
+			withCredentials: true
+		});
+	};
+
+	this.save = function(portfolioItem, data, authKey) {
+		return $http({
+			url: 'https://rally1.rallydev.com/slm/webservice/v2.0/portfolioitem/feature/'+portfolioItem.ObjectID+'?key='+authKey,
+			method: 'POST',
+			data: data,
+			withCredentials: true
 		});
 	};
 
 });
 
-                
-angular.module('rally.hackathon.intel.api', [])
-.config(function($httpProvider) {
-  //Enable cross domain calls
-  $httpProvider.defaults.useXDomain = true;
-
-  //Remove the header used to identify ajax call  that would prevent CORS from working
-  delete $httpProvider.defaults.headers.common['X-Requested-With'];
-})
-
 
             Rally.launchApp('CustomApp', {
-                name:"insights-movers-and-shakers",
+                name:"angular-safe-tools",
 	            parentRepos:""
             });
 
@@ -12857,8 +12903,8 @@ select {
 				<td ng-repeat="project in art.projects" 
 					ng-mouseenter="teamCommitSelectShow[project.projectId] = pi.ObjectID" 
 					ng-mouseleave="teamCommitSelectShow[project.projectId] = undefined"
-					ng-class="{green: teamCommitment[project.projectId][pi.ObjectID] === 'Committed', yellow: teamCommitment[project.projectId][pi.ObjectID] === 'Not Committed'}">
-					<span ng-show="!teamCommitSelectShow[project.projectId]">{{teamCommitment[project.projectId][pi.ObjectID]}}</span>
+					ng-class="{green: teamCommitment[pi.ObjectID][project.projectId] === 'Committed', yellow: teamCommitment[pi.ObjectID][project.projectId] === 'Not Committed'}">
+					<span ng-show="!teamCommitSelectShow[project.projectId]">{{teamCommitment[pi.ObjectID][project.projectId]}}</span>
 					<select ng-show="teamCommitSelectShow[project.projectId] == pi.ObjectID" ng-model="teamCommitStatus" ng-options="item.name for item in teamCommitValues" ng-change="setTeamCommitment(project, pi, teamCommitStatus)"></select>
 				</td>
 			</tr>

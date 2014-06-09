@@ -1,13 +1,18 @@
 var module = angular.module('rally.hackathon.intel', [
 	'rui.alm.projectPicker',
-	'rally.hackathon.intel.api',
 	'rally.hackathon.intel.release',
 	'rally.hackathon.intel.projects',
 	'rally.hackathon.intel.portfolio'
 ]);
 
-module.config(function($slmProvider) {
+module.config(function($slmProvider, $httpProvider) {
 	$slmProvider.setBaseUrl("https://rally1.rallydev.com/slm/");
+
+	//$httpProvider.defaults.headers.common['Access-Control-Allow-Origin'] = 'http://localhost:1337/';
+	//$httpProvider.defaults.headers.common['Access-Control-Allow-Methods'] = 'POST, GET, OPTIONS';
+	$httpProvider.defaults.useXDomain = true;
+	$httpProvider.defaults.withCredentials = true;
+	delete $httpProvider.defaults.headers.common['X-Requested-With'];
 });
 
 Ext.define('CustomApp', {
@@ -32,7 +37,7 @@ module.run(function($rootScope, $timeout){
 	});
 });
 
-module.controller('RootCtrl', function($scope, $log, releaseLoader, portfolioItemLoader, projectLoader){
+module.controller('RootCtrl', function($scope, $log, $http, releaseLoader, portfolioItemLoader, projectLoader){
 	$scope.art = {
 		availableReleases: [],
 		portfolioItems: [],
@@ -50,8 +55,13 @@ module.controller('RootCtrl', function($scope, $log, releaseLoader, portfolioIte
 	$scope.teamCommitment = {};
 
 	$scope.setTeamCommitment = function(project, pi, teamCommitStatus) {
-		$scope.teamCommitment[project.projectId] = {};
-		$scope.teamCommitment[project.projectId][pi.ObjectID] = teamCommitStatus.value;
+		$scope.teamCommitment[pi.ObjectID] = {};
+		$scope.teamCommitment[pi.ObjectID][project.projectId] = teamCommitStatus.value;
+
+		console.log("saving PI commitments:", pi.ObjectID);
+		portfolioItemLoader.save(pi, {c_CFTeamCommit: $scope.teamCommitment[pi.ObjectID]}, $scope.authorizationKey).then(function(data, status) {
+			console.log("status", status, "data", data);
+		});
 	};
 
 	$scope.$watch('art.selectedProject', function(){
@@ -68,7 +78,25 @@ module.controller('RootCtrl', function($scope, $log, releaseLoader, portfolioIte
 	$scope.$watch('art.selectedRelease', function(){
 		portfolioItemLoader.getPortfolioItemsByRelease($scope.art.selectedRelease).then(function(results) {
 			$scope.art.portfolioItems = results.data.QueryResult.Results;
+			// TODO fill in teamCommitment from results
 		});
 	});
+
+	$scope.authorizationKey = undefined;
+
+	var getAuthorizationKey = function() {
+		$http({
+			url: 'https://rally1.rallydev.com/slm/webservice/v2.0/security/authorize',
+			method: 'JSONP',
+			params: {
+				'jsonp': 'JSON_CALLBACK'
+			}
+		}).then(function(response) {
+			$scope.authorizationKey = response.data.OperationResult.SecurityToken;
+		});
+	};
+
+	getAuthorizationKey();
+
 });
 

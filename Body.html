@@ -27,8 +27,8 @@
 				<td ng-repeat="project in art.projects" 
 					ng-mouseenter="teamCommitSelectShow[project.projectId] = pi.ObjectID" 
 					ng-mouseleave="teamCommitSelectShow[project.projectId] = undefined"
-					ng-class="{green: teamCommitment[project.projectId][pi.ObjectID] === 'Committed', yellow: teamCommitment[project.projectId][pi.ObjectID] === 'Not Committed'}">
-					<span ng-show="!teamCommitSelectShow[project.projectId]">{{teamCommitment[project.projectId][pi.ObjectID]}}</span>
+					ng-class="{green: teamCommitment[pi.ObjectID][project.projectId] === 'Committed', yellow: teamCommitment[pi.ObjectID][project.projectId] === 'Not Committed'}">
+					<span ng-show="!teamCommitSelectShow[project.projectId]">{{teamCommitment[pi.ObjectID][project.projectId]}}</span>
 					<select ng-show="teamCommitSelectShow[project.projectId] == pi.ObjectID" ng-model="teamCommitStatus" ng-options="item.name for item in teamCommitValues" ng-change="setTeamCommitment(project, pi, teamCommitStatus)"></select>
 				</td>
 			</tr>

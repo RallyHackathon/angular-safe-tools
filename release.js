@@ -6,7 +6,8 @@ angular.module('rally.hackathon.intel.release', []).service('releaseLoader', fun
 			method: 'JSONP',
 			params: {
 				'jsonp': 'JSON_CALLBACK'
-			}
+			},
+			withCredentials: true
 		});
 	};
 

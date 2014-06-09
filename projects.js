@@ -6,21 +6,23 @@ angular.module('rally.hackathon.intel.projects', []).service('projectLoader', fu
 		var self = this;
 		var deferred = $q.defer();
 		queue = [rootProject];
-		leaves = []
+		leaves = [];
 
-		var test = function(){ return queue.length > 0};
+		var test = function() {
+			return queue.length > 0;
+		};
 		async.whilst(test, function(callback){
-			var toLoad = queue.shift()
+			var toLoad = queue.shift();
 			self.loadChildren(toLoad).then(function(children){
 				if(_.size(children) === 0){
 					leaves.push(_.extend({name:toLoad.Name, projectId:toLoad.ObjectID, workspaceId: rootProject.workspaceOid}));
 				} else {
 					_.each(children, function(child){ 
-						queue.push(child) 
+						queue.push(child);
 					});
 				}
 				callback();
-			})
+			});
 		}, function(err){
 			deferred.resolve(leaves);
 			if(!$rootScope.$$phase){
@@ -37,9 +39,10 @@ angular.module('rally.hackathon.intel.projects', []).service('projectLoader', fu
 			method: 'JSONP',
 			params: {
 				'jsonp': 'JSON_CALLBACK'
-			}
+			},
+			withCredentials: true
 		}).then(function(data){
-			return data.data.QueryResult.Results
+			return data.data.QueryResult.Results;
 		});
 
 	};
